@@ -1,0 +1,9 @@
+{
+ :dependencies [[de.active-group/reacl-c "0.10.0"]]
+ :source-paths ["src"]
+ :builds {:app {:target :browser
+                :output-dir "js/"
+                :asset-path "/js"
+                :modules {:main {:entries [todomvc.main]}}
+                :devtools {:http-port 9600
+                           :http-root "."}}}}
