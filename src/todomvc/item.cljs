@@ -2,6 +2,7 @@
   (:require [reacl-c.core :as c :include-macros true]
             [active.clojure.functions :as f]
             [active.clojure.lens :as lens]
+            [reacl-c-basics.forms.core :as forms]
             [todomvc.basics :as b]
             [todomvc.model :as model]
             [reacl-c.dom :as dom :include-macros true]))
@@ -29,7 +30,7 @@
                        (some? edit) (str " editing"))}
              (dissoc attrs :onDelete))
             (dom/div {:class "view"}
-                     (c/focus (lens/>> lens/first model/completed) (b/checkbox {:class "toggle"}))
+                     (c/focus (lens/>> lens/first model/completed) (forms/input {:type "checkbox" :class "toggle"}))
                      (c/focus lens/second
                               (dom/label {:onDoubleClick
                                           ;; TODO: focus?

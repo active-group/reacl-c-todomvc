@@ -1,42 +1,23 @@
 (ns todomvc.basics
   (:require [reacl-c.core :as c :include-macros true]
             [active.clojure.lens :as lens]
-            [reacl-c.dom :as dom :include-macros true]))
+            [reacl-c.dom :as dom :include-macros true]
+            [reacl-c-basics.forms.core :as forms]))
 
-(dom/defn-dom checkbox [attrs & content]
-  (c/with-state-as value
-    (apply dom/input (dom/merge-attributes {:type "checkbox"
-                                            :checked value
-                                            :onChange (fn [_ ev]
-                                                        (.-checked (.-target ev)))}
-                                           attrs)
-           content)))
-
-(dom/defn-dom input-string [attrs & content]
-  (c/with-state-as text
-    (apply dom/input (dom/merge-attributes
-                      {:type "text"
-                       :value text
-                       :onChange
-                       (fn [_ ev]
-                         (.-value (.-target ev)))}
-                      attrs)
-           content)))
-
-(dom/defn-dom edit-text [attrs & content]
-  (apply input-string
-         (dom/merge-attributes
-          {:autoFocus true
-           :onKeyDown
-           (fn [text ev]
-             (case (.-keyCode ev)
-               27 (do (.preventDefault ev)
-                      (c/call (:onCancel attrs)))
-               13 (do (.preventDefault ev)
-                      (c/call (:onCommit attrs)))
-               (c/return)))}
-          (dissoc attrs :onCommit :default))
-         content))
+(dom/defn-dom edit-text [attrs]
+  (forms/input
+   (dom/merge-attributes
+    {:autoFocus true
+     :type "text"
+     :onKeyDown
+     (fn [text ev]
+       (case (.-keyCode ev)
+         27 (do (.preventDefault ev)
+                (c/return :action (c/call-handler (:onCancel attrs))))
+         13 (do (.preventDefault ev)
+                (c/return :action (c/call-handler (:onCommit attrs))))
+         (c/return)))}
+    (dissoc attrs :onCommit :default))))
 
 (dom/defn-dom text-form [attrs]
   (c/isolate-state

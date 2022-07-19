@@ -1,5 +1,6 @@
 {
- :dependencies [[de.active-group/reacl-c "0.10.0"]]
+ :dependencies [[de.active-group/reacl-c "0.11.3"]
+                [de.active-group/reacl-c-basics "0.11.1"]]
  :source-paths ["src"]
  :builds {:app {:target :browser
                 :output-dir "js/"

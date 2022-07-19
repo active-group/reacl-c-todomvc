@@ -1,4 +1,4 @@
-(ns todomvc.main
+(ns ^:dev/always todomvc.main
   (:require [reacl-c.main :as main]
             [todomvc.core :as core]
             [todomvc.model :as model]
@@ -10,8 +10,5 @@
        (history/with-current-hash)
        (storage/with-todos-storage model/empty-todos)))
 
-(defn ^:dev/after-load main []
-  (main/run (first (js/document.getElementsByClassName "todoapp"))
-    app))
-
-(main)
+(main/run (first (js/document.getElementsByClassName "todoapp"))
+  app)

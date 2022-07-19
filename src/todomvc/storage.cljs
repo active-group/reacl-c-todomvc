@@ -12,8 +12,8 @@
   (let [key "todos-reacl-c"]
     (c/isolate-state initial
                      (c/fragment
-                      (c/handle-effect-result model/parse-todos
-                                              (local-storage-get key))
+                      (c/execute-effect (local-storage-get key)
+                                        model/parse-todos)
                       (-> item
                           (c/handle-state-change (fn [_ new]
                                                    (c/return :state new

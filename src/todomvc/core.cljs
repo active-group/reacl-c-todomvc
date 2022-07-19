@@ -1,5 +1,6 @@
 (ns todomvc.core
   (:require [reacl-c.core :as c :include-macros true]
+            [reacl-c-basics.forms.core :as forms]
             [active.clojure.functions :as f]
             [active.clojure.lens :as lens]
             [todomvc.basics :as b]
@@ -19,8 +20,9 @@
     (dom/section {:class "main"}
                  (c/focus model/mark-all
                           (c/fragment
-                           (b/checkbox {:class "toggle-all"
-                                        :id "toggle-all"})
+                           (forms/input {:type "checkbox"
+                                         :class "toggle-all"
+                                         :id "toggle-all"})
                            (dom/label {:for "toggle-all"})))
                  (todo-list {:onDelete model/delete-todo}
                             (model/apply-filter todos filter)))))
