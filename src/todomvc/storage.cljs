@@ -1,5 +1,5 @@
 (ns todomvc.storage
-  (:require [reacl-c.core :as c]
+  (:require [reacl-c.core :as c :include-macros true]
             [todomvc.model :as model]))
 
 (c/defn-effect local-storage-get [key]
